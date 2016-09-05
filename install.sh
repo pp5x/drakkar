@@ -252,7 +252,15 @@ if ! docker-machine status docker-vm | grep -q 'Running'; then
   info 'Starting docker-vm'
   docker-machine start docker-vm
   success 'Docker machine ready'
+else
+  info 'Docker machine already running'
 fi
+
+################################################################################
+info 'Get Boot2Docker exports'
+docker-machine regenerate-certs docker-vm --force
+eval "$(docker-machine env docker-vm)"
+################################################################################
 
 info 'Exiting...'
 cleanup
